@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     data.forEach(toy => { 
      toyDiv.innerHTML += `
-     <div class="card">
+     <div class="card" id = ${toy.id}>
      <h2>${toy.name}</h2>
      <img src=${toy.image} class="toy-avatar" />
      <p>${toy.likes} Likes </p>
@@ -79,6 +79,18 @@ document.addEventListener("DOMContentLoaded", () => {
      const button = e.target
      const likeScore = button.parentNode.querySelector("p")
      likeScore.innerText = `${parseInt(likeScore.innerText) + 1} Likes`}
+  
+
+   
+     fetch("http://localhost:3000/toys/:id", {
+       method: "PATCH",
+       headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+       },
+       body: JSON.stringify()
+     })
+      
   })
 
 
