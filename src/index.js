@@ -18,14 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(data => {
     const toyCollection = document.querySelector("#toy-collection")
     const toyDiv = document.createElement('div')
-    toyDiv.class = "card"
+    
 
     data.forEach(toy => { 
      toyDiv.innerHTML += `
+     <div class="card">
      <h2>${toy.name}</h2>
      <img src=${toy.image} class="toy-avatar" />
      <p>${toy.likes} Likes </p>
      <button class="like-btn">Like <3</button>
+     </div>
      `
      })
      
@@ -70,5 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // formInput.reset()
   })
+
+  
+  document.addEventListener('click', function(e){
+     if(e.target.className === 'like-btn'){
+     const button = e.target
+     const likeScore = button.parentNode.querySelector("p")
+     likeScore.innerText = `${parseInt(likeScore.innerText) + 1} Likes`}
+  })
+
+
+
+
 })
 
