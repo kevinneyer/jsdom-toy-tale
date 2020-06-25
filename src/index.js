@@ -29,13 +29,46 @@ document.addEventListener("DOMContentLoaded", () => {
      `
      })
      
-     
-
+    
      toyCollection.append(toyDiv)
-     console.log(toyCollection)
 
   })
 
+  const toyForm = document.getElementsByClassName("input-text")
 
 
-});
+  const submitButton = document.querySelector(".submit")
+
+  submitButton.addEventListener("click", function(e){
+    e.preventDefault()
+
+    const formInput = {
+      name: toyForm.name.value,
+      image: toyForm.image.value,
+      likes: 0
+    }
+    
+    fetch ("http://localhost:3000/toys", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(formInput)
+    })
+    const toyCollection = document.querySelector("#toy-collection")
+    const toyDiv = document.createElement('div')
+    toyDiv.class = "card"
+
+    toyDiv.innerHTML = `
+     <h2>${toyForm.name.value}</h2>
+     <img src=${toyForm.image.value} class="toy-avatar" />
+     <p> 0 Likes </p>
+     <button class="like-btn">Like <3</button>
+     `
+    toyCollection.append(toyDiv)
+
+    // formInput.reset()
+  })
+})
+
