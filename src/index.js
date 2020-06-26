@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     data.forEach(toy => { 
      toyDiv.innerHTML += `
-     <div class="card" id = ${toy.id}>
+     <div class="card" >
      <h2>${toy.name}</h2>
      <img src=${toy.image} class="toy-avatar" />
      <p>${toy.likes} Likes </p>
-     <button class="like-btn">Like <3</button>
+     <button class="like-btn" id=${toy.id} >Like <3</button>
      </div>
      `
      })
@@ -76,19 +76,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
   document.addEventListener('click', function(e){
      if(e.target.className === 'like-btn'){
+       console.log(e.target.id)
      const button = e.target
      const likeScore = button.parentNode.querySelector("p")
      likeScore.innerText = `${parseInt(likeScore.innerText) + 1} Likes`}
   
-
+     let more = parseInt(e.target.previousElementSibling.innerText)
    
-     fetch("http://localhost:3000/toys/:id", {
+     fetch(`http://localhost:3000/toys/${e.target.id}`, {
        method: "PATCH",
        headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
        },
-       body: JSON.stringify()
+       body: JSON.stringify({"likes": more})
      })
       
   })
